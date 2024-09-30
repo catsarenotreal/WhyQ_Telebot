@@ -1,0 +1,28 @@
+{
+    "name": "tg-bot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "tsx ./WhyQReminderBot.tsx",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@dgcode/url-fetch-app": "^0.1.55",
+        "csv": "^6.3.10",
+        "grammy": "^1.30.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "axios": "^1.7.7",
+        "csv-parse": "^5.5.6",
+        "express": "^4.21.0",
+        "node-cron": "^3.0.3",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "tsx": "^4.19.1",
+        "typescript": "^5.6.2"
+    }
+}

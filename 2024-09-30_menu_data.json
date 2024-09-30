@@ -1,0 +1,627 @@
+[
+    {
+        "menu item": "Egg & Onion Prata (2pcs)",
+        "restaurant location": "Aliff Rojak Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Vegetables and Brown Rice w/ Vinaigrette Dressing [VEG]",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Honey Roasted Chicken Breast and Soba w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Honey Roasted Chicken Breast and Brown Rice w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Black Pepper Drumstick and Soba w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Black Pepper Chicken Breast Salad w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Honey Roasted Drumstick Salad w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Black Pepper Drumstick Salad w/ Roasted Sesame Dressing",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Caesar Salad w/ Vinaigrette Dressing [VEG]",
+        "restaurant location": "SHIMMER #B1-07 - One Raffles Place",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Drumstick Chicken Rice (Steamed)",
+        "restaurant location": "Ah Tai Hainanese Chicken Rice-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Roasted Chicken Rice",
+        "restaurant location": "Ah Tai Hainanese Chicken Rice-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Fried Kway Teow (M)",
+        "restaurant location": "Opeh Leaf Delights -Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Mixed Seafood Horfun",
+        "restaurant location": "Somerset Delicious-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Fried Fish Meat Soup with Rice",
+        "restaurant location": "Jin Hua Sliced Fish Bee Hoon (01-77",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Fried Fish Meat Bee Hoon",
+        "restaurant location": "Jin Hua Sliced Fish Bee Hoon (01-77",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Nasi Lemak Chicken",
+        "restaurant location": "The Green Leaf-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Mala Xiang Guo with Rice for 1 pax",
+        "restaurant location": "Din Din Red Mala Xiang Guo-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Chicken Shawarwa Saffron Rice",
+        "restaurant location": "Dubai Shawarma -Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Pineapple Fried Rice",
+        "restaurant location": "Sisaket Thai Food-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Black Olive Fried Rice",
+        "restaurant location": "Sisaket Thai Food-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Thai Fried Vermicelli w/ Prawn",
+        "restaurant location": "Sisaket Thai Food-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Basil Chicken with Rice",
+        "restaurant location": "Sisaket Thai Food-Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Veg Chapati Set",
+        "restaurant location": "North South Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Nasi Padang Ayam",
+        "restaurant location": "Green Leaf - Maxwell",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Veg Briyani Set Meal",
+        "restaurant location": "North & South Authentic Indian Cuisine (01-25",
+        "date": "2024-09-30"
+    },
+    {
+        "menu item": "Vegetarian Chicken Rice",
+        "restaurant location": "Healthy Vegetarian #01-44 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Ban Mee Chilli",
+        "restaurant location": "Grandma Ban Mee (01-07",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Curry Chicken Noodle",
+        "restaurant location": "Wonder Food-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Dumpling Noodle",
+        "restaurant location": "Wonder Food-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Soy Sauce Chicken Noodle",
+        "restaurant location": "Wonder Food-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Tempura Pollock Penyat",
+        "restaurant location": "Rayyan's Waroeng Upnormal-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Honey Glazed Char Grilled Boneless Thigh Penyat",
+        "restaurant location": "Rayyan's Waroeng Upnormal-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Breaded Chix Cutlet Penyat",
+        "restaurant location": "Rayyan's Waroeng Upnormal-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "1/4 Cut Fried Chix Penyat",
+        "restaurant location": "Rayyan's Waroeng Upnormal-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Black Pepper Salmon Bowl",
+        "restaurant location": "Big Bowl Project-Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Tom Yam Salmon Bowl",
+        "restaurant location": "Big Bowl Project - Amoy",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Teriyaki Chicken Salad Bowl",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Salad Bowl (Veg)",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Smokey Duckey Bowl",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Chicken Salad Bowl",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Salad Bowl (Vegan)",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Smokey Duck Bowl",
+        "restaurant location": "Supergreen",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Vegetarian Sin Chew Bee Hoon",
+        "restaurant location": "Healthy Vegetarian #01-44 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Pineapple Fried Rice",
+        "restaurant location": "Healthy Vegetarian #01-44 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Vegetarian Hokkien Mee",
+        "restaurant location": "Healthy Vegetarian #01-44 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Salted Fish w Chicken Rice",
+        "restaurant location": "Hong Kong Style Stewed Soup and Steamed Rice #01-34 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Mui Choy w Chicken Rice",
+        "restaurant location": "Hong Kong Style Stewed Soup and Steamed Rice #01-34 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Salted Egg Yolk Minced Meat Rice",
+        "restaurant location": "Hong Kong Style Stewed Soup and Steamed Rice #01-34 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Braised Pork w Mui Choy Rice",
+        "restaurant location": "Hong Kong Style Stewed Soup and Steamed Rice #01-34 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Mushroom w Chicken Rice",
+        "restaurant location": "Hong Kong Style Stewed Soup and Steamed Rice #01-34 - Amoy FC",
+        "date": "2024-10-01"
+    },
+    {
+        "menu item": "Omurice",
+        "restaurant location": "Korean Food - Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Beef Meatball Pasta (Spaghetti | Tomato Sauce )",
+        "restaurant location": "Chef'B Western-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Harvest Chicken Rice Bowl",
+        "restaurant location": "ERROR!",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Harvest Summer Shrimp Salad",
+        "restaurant location": "ERROR!",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Harvest Bowl",
+        "restaurant location": "VEGAN",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Saigon Bowl",
+        "restaurant location": "Bamboo Bowls - Far East Square",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Kyoto Base Bowl",
+        "restaurant location": "Bamboo Bowls - Far East Square",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Sichuan Base Bowl",
+        "restaurant location": "Bamboo Bowls - Far East Square",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Seoul Bowl",
+        "restaurant location": "Bamboo Bowls - Far East Square",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Bombay Base Bowl",
+        "restaurant location": "Bamboo Bowls - Far East Sqaure",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Nasi Padang (Fish)",
+        "restaurant location": "Warung Parsanga-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Nasi Padang (Chicken)",
+        "restaurant location": "Warung Parsanga-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Chicken Chop Pasta  (Spaghetti | Tomato Sauce )",
+        "restaurant location": "Chef'B Western-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Chicken Bowl",
+        "restaurant location": "Craft B-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Flank Bowl",
+        "restaurant location": "Craft B-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Chipotle Beef Burrito",
+        "restaurant location": "James Quesadilla & Brunch -Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Sous Vide Chicken Breast Burrito",
+        "restaurant location": "James Quesadilla & Brunch -Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Pulled Pork Burrito",
+        "restaurant location": "James Quesadilla & Brunch -Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Classic Beef Pho",
+        "restaurant location": "Pho Hanoi-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Grilled Pork Vermicelli",
+        "restaurant location": "Pho Hanoi-Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Ayam Penyet",
+        "restaurant location": "Dan's Kitchen - Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Maggie Goreng Dan's",
+        "restaurant location": "Dan's Kitchen - Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Nasi Ayam Dan's",
+        "restaurant location": "Dan's Kitchen - Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Nasi Ayam Bakar",
+        "restaurant location": "Dan's Kitchen - Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Signature Ramen Bowl",
+        "restaurant location": "Noodle Story- Amoy",
+        "date": "2024-10-02"
+    },
+    {
+        "menu item": "Bánh Mì with Chicken",
+        "restaurant location": "The Viêt Kitchen #01-48 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Bánh Mì with Beef",
+        "restaurant location": "The Viêt Kitchen #01-48 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Bánh Mì with Pork",
+        "restaurant location": "The Viêt Kitchen #01-48 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Double Fish Soup with Rice",
+        "restaurant location": "福笑 Heritage Food Local Taste #01-07 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Fried Fish Soup with Thick Bee Hoon",
+        "restaurant location": "福笑 Heritage Food Local Taste #01-07 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Signature Scrambled Egg with Luncheon Meat Rice",
+        "restaurant location": "SING HK Kitchen #01-12 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Signature Scrambled Egg with HK Style Curry Pork Chop Rice",
+        "restaurant location": "SING HK Kitchen #01-12 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Signature Scrambled Egg with HK Style Curry Beef Chop Rice",
+        "restaurant location": "SING HK Kitchen #01-12 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Vegetarian Tom Yum Fried Rice",
+        "restaurant location": "Chinese Vegetarian Cuisine #01-46 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Veg Olive Fried Rice",
+        "restaurant location": "Chinese Vegetarian Cuisine #01-46 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Seafood Bowl w/ Caesar Dressing",
+        "restaurant location": "MaFe Tacos #01-08 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Seafood Bowl w/ Honey Mustard Sauce",
+        "restaurant location": "MaFe Tacos #01-08 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Roasted Chicken Pasta Linguine w/ Mushroom Cream Sauce",
+        "restaurant location": "MaFe Tacos #01-08 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Roasted Chicken Pasta Linguine w/ Basil Tomato Sauce",
+        "restaurant location": "MaFe Tacos #01-08 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Seafood Yee Mee",
+        "restaurant location": "iEat Kitchen #01-56 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Chicken Cutlet Hor Fun",
+        "restaurant location": "iEat Kitchen #01-56 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Seafood Hor Fun",
+        "restaurant location": "iEat Kitchen #01-56 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Thai Style Chicken Cutlet Rice",
+        "restaurant location": "iEat Kitchen #01-56 - LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Veg Biryani w/ Raita",
+        "restaurant location": "Maya Indian-LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Veg Meal (Rice, 3 Veg, Dal ,Chapati, Raita and sweet)",
+        "restaurant location": "Maya Indian-LPS",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Chicken Tikka Pita Pocket",
+        "restaurant location": "Kebab Faktory",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Falafel Pita Pocket",
+        "restaurant location": "Kebab Faktory",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Chicken Burrito",
+        "restaurant location": "Kebab Faktory",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Karana (Young Jackfruit) Burrito",
+        "restaurant location": "Kebab Faktory",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Falafel Grain Bowl",
+        "restaurant location": "Kebab Faktory",
+        "date": "2024-10-03"
+    },
+    {
+        "menu item": "Soy Sesame Chicken",
+        "restaurant location": "Dosirak",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Avocado Sweet Potato",
+        "restaurant location": "Dosirak",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Spicy Chicken",
+        "restaurant location": "Dosirak",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Beef Bulgogi",
+        "restaurant location": "Dosirak",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Garlic Naan Set [2 pcs]",
+        "restaurant location": "SPICELIOS #01-69 - Amoy FC",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Naan Set [2 pcs]",
+        "restaurant location": "SPICELIOS #01-69 - Amoy FC",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Chicken Briyani [Fried]",
+        "restaurant location": "SPICELIOS #01-69 - Amoy FC",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Chicken Briyani [Curry]",
+        "restaurant location": "SPICELIOS #01-69 - Amoy FC",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "VEG Chapati Set",
+        "restaurant location": "Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Ban Mee Dry",
+        "restaurant location": "Grandma Ban Mee (01-07",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Ban Mee Soup",
+        "restaurant location": "Grandma Ban Mee (01-07",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Fried Kway Teow  (VEG)",
+        "restaurant location": "Healthy Vegetarian-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Dumpling Noodle",
+        "restaurant location": "Wah Kee Noodle-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Wanton Mee",
+        "restaurant location": "Wah Kee Noodle-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Black Pepper Beef Hor Fun",
+        "restaurant location": "Pepper Bowl-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Black Pepper Pork Rice",
+        "restaurant location": "Pepper Bowl-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Sliced Fish Horfun",
+        "restaurant location": "Good Day-Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Harvest Chicken Rice Bowl",
+        "restaurant location": "ERROR!",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Harvest Bowl",
+        "restaurant location": "VEGAN",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Greek Pasta Salad (VEG)",
+        "restaurant location": "Harvest",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Soy Sesame Chicken Bibimbap",
+        "restaurant location": "Dosirak",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Chicken Soba Bowl",
+        "restaurant location": "Craft B- Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Avocado Sweet Potato Five-Grain Rice Bibimbap with Tofu Rice",
+        "restaurant location": "Dosirak-Standalone",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Seafood Noodles",
+        "restaurant location": "#02-105- Amoy",
+        "date": "2024-10-04"
+    },
+    {
+        "menu item": "Sarawak Laksa",
+        "restaurant location": "#02-105- Amoy",
+        "date": "2024-10-04"
+    }
+]
