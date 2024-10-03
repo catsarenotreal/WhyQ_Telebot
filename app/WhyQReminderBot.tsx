@@ -5,6 +5,7 @@ import cron from "node-cron";
 import mysql from "mysql2";
 import { Menu, FeedbackData } from "./types";
 import { TELEGRAM_URL, BOT_TOKEN, CHAT_ID } from "./constants";
+import { beginBot, getUpdates, sendMessage } from "./services/axios";
 // ===================================
 
 // Global Stuff
@@ -38,15 +39,8 @@ const bot = new Bot(BOT_TOKEN);
 // ===================================
 
 // Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
-
 const getPMChatId = () => {
-  var res = axios.get(TELEGRAM_URL + "/getUpdates").then((result) => {
-    // var res = JSON.stringify(result.data.message);
-    console.log(result.data);
-    // console.log(result.data)
-    // console.log(res)
-    // console.log(res.result[0].message.chat.id.toString());
-  });
+  getUpdates();
 };
 
 bot.on("message", () => {
@@ -79,19 +73,6 @@ async function addReview(feedbackData: FeedbackData) {
   console.log("DONE!!!!!!!");
 }
 
-// ===================================
-
-// Helper function to post message
-
-const postMessage = (message: string, private_only: boolean = false) => {
-  axios.post(TELEGRAM_URL + "/sendMessage", {
-    chat_id: CHAT_ID,
-    text: message,
-  });
-};
-
-// ===================================
-
 // Function to remind Justin --> only Mondays, Tuesdays, Wednesdays
 
 const SubmitWhyQFoodReminder = () => {
@@ -109,7 +90,7 @@ const SubmitWhyQFoodReminder = () => {
       "Justin if you don't submit the WhyQ now it's gonna be joever";
   }
 
-  postMessage(reminder_message);
+  sendMessage(reminder_message);
 };
 
 // Function to remind people to do the daily survey --> everyday, send at 1.20pm
@@ -122,7 +103,7 @@ const SubmitFeedbackReminder = () => {
     "Also, if you want to get the leftover foods now is probably the time to go for it\n" +
     ">>>> And avoid Lihoon <<<<";
 
-  postMessage(reminder_message, true);
+  sendMessage(reminder_message, true);
 };
 
 // Function to conduct survey, the actual form--> takes fooditems that is known to have been on the menu on today's date
@@ -130,7 +111,7 @@ const SubmitFeedbackReminder = () => {
 async function RequestFoodFeedback() {
   // Payload Template
 
-  var feedbackData: FeedbackData = {
+  const feedbackData: FeedbackData = {
     FoodItem: "If you're reading this I fucked up somewhere: FoodItem", // takes the local index
     Rating: "If you're reading this I fucked up somewhere: Rating",
     WouldOrderAgain:
@@ -323,12 +304,7 @@ async function RequestFoodFeedback() {
 
 // Enabled Commands
 
-axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-  // This begins the bot. Only posts once.
-  chat_id: CHAT_ID,
-  text: "Bot Begin",
-});
-
+beginBot();
 RequestFoodFeedback(); // The feedback form
 
 // ===================================
