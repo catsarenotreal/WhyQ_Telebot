@@ -1,9 +1,15 @@
 import { Bot, Context, InlineKeyboard, Keyboard } from "grammy";
 import express from "express";
 import cron from "node-cron";
-import mysql from "mysql2";
 import { Menu, FeedbackData } from "./types";
-import { TELEGRAM_URL, BOT_TOKEN, CHAT_ID } from "./constants";
+import {
+  TELEGRAM_URL,
+  BOT_TOKEN,
+  CHAT_ID,
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+} from "./constants";
 import { beginBot, getUpdates, sendMessage } from "./services/axios";
 import { retrieveMenuItems, addReview } from "./services/mysql";
 // ===================================
@@ -13,7 +19,7 @@ import { retrieveMenuItems, addReview } from "./services/mysql";
 const app = express();
 app.use(express.json());
 
-const date_today = new Date().toLocaleDateString("sv-SE"); // sv's format is in yyyy-mm-dd
+const currentDate = new Date().toLocaleDateString("sv-SE"); // sv's format is in yyyy-mm-dd
 
 // const command_start = {
 //   name: "start",
@@ -43,21 +49,16 @@ bot.on("message", () => {
 // Function to remind Justin --> only Mondays, Tuesdays, Wednesdays
 
 const SubmitWhyQFoodReminder = () => {
-  const day_today = new Date().getDay();
+  const currentDay = new Date().getDay();
 
-  let reminder_message;
+  const reminderMessage =
+    currentDay === MONDAY
+      ? "Justin it's Monday please submit your WhyQ"
+      : currentDay === TUESDAY
+        ? "Justin stop trying to edge yourself it's Tuesday submit your WhyQ can"
+        : "Justin if you don't submit the WhyQ now it's gonna be joever";
 
-  if (day_today === 1) {
-    reminder_message = "Justin it's Monday please submit your WhyQ";
-  } else if (day_today === 2) {
-    reminder_message =
-      "Justin stop trying to edge yourself it's Tuesday submit your WhyQ can";
-  } else if (day_today === 3) {
-    reminder_message =
-      "Justin if you don't submit the WhyQ now it's gonna be joever";
-  }
-
-  sendMessage(reminder_message);
+  sendMessage(reminderMessage);
 };
 
 // Function to remind people to do the daily survey --> everyday, send at 1.20pm
@@ -65,7 +66,7 @@ const SubmitWhyQFoodReminder = () => {
 const SubmitFeedbackReminder = () => {
   const reminder_message: string =
     "Hi pretty please please please submit your WhyQ survey for today's (" +
-    date_today +
+    currentDate +
     ") food\n" +
     "Also, if you want to get the leftover foods now is probably the time to go for it\n" +
     ">>>> And avoid Lihoon <<<<";
@@ -92,18 +93,18 @@ async function RequestFoodFeedback() {
   // Menu Text
 
   const menuText = (
-    qn_num: number,
+    questionNumber: number,
     foodInput: string = "temp",
     ratingInput: string = "temp",
   ): string => {
-    if (qn_num === 1) {
-      return "<b> What did you eat today? </b>\n" + menu_list_text;
-    } else if (qn_num === 2) {
+    if (questionNumber === 1) {
+      return "<b> What did you eat today? </b>\n" + menuList;
+    } else if (questionNumber === 2) {
       return (
         "<b> How was your lunch today? (1 for worst, 5 for best) </b>\n\nYou have eaten:\n" +
         foodInput
       );
-    } else if (qn_num === 3) {
+    } else if (questionNumber === 3) {
       return (
         "<b> Will you order it again? </b>  \n\nYou have eaten:\n" +
         foodInput +
@@ -118,7 +119,7 @@ async function RequestFoodFeedback() {
 
   const completeSurveyText = (foodInput, ratingInput, wouldOrderInput) =>
     "SURVEY SUBMITTED FOR " +
-    date_today +
+    currentDate +
     "\n" +
     "==============================\n" +
     "Food: " +
@@ -138,9 +139,9 @@ async function RequestFoodFeedback() {
 
   var num_to_item = new Map(); // local index --> food item name -->
 
-  var menu_list_text = "";
+  var menuList = "";
   for (let i = 0; i < filtered_data.length; i++) {
-    menu_list_text += i + ": " + filtered_data[i]["menu_item"] + "\n";
+    menuList += i + ": " + filtered_data[i]["menu_item"] + "\n";
     num_to_item.set(i.toString(), [
       filtered_data[i]["menu_item"],
       filtered_data[i]["item_id"],
@@ -149,12 +150,12 @@ async function RequestFoodFeedback() {
 
   let num = 0;
 
-  const food_options = filtered_data.map((entry) => [
+  const foodOptions = filtered_data.map((entry) => [
     (++num).toString(),
     num.toString(),
   ]);
 
-  const rating_options = [
+  const ratingOptions = [
     ["1", "1"],
     ["2", "2"],
     ["3", "3"],
@@ -170,18 +171,18 @@ async function RequestFoodFeedback() {
 
   const backButton = InlineKeyboard.text("Back", "Back");
 
-  const foodButtonRows = food_options.reduce<any>((acc, [txt, data], i) => {
+  const foodButtonRows = foodOptions.reduce<any>((acc, [txt, data], i) => {
     if (i % 5 === 0) acc.push([]); // Start a new sublist every 5 elements
     acc[acc.length - 1].push(InlineKeyboard.text(txt, data)); // Push the current number into the last sublist
     return acc;
   }, []);
-  const food_keyboard = InlineKeyboard.from(foodButtonRows);
+  const foodKeyboard = InlineKeyboard.from(foodButtonRows);
 
-  const numberButtonRows = rating_options.map(([txt, data]) => [
+  const numberButtonRows = ratingOptions.map(([txt, data]) => [
     InlineKeyboard.text(txt, data),
   ]);
   numberButtonRows.push([backButton]);
-  const rating_keyboard = InlineKeyboard.from(numberButtonRows);
+  const ratingKeyboard = InlineKeyboard.from(numberButtonRows);
 
   const yesNoButtonRows = yesno.map(([txt, data]) => [
     InlineKeyboard.text(txt, data),
@@ -195,13 +196,12 @@ async function RequestFoodFeedback() {
     .command("survey", async (ctx) => {
       await ctx.reply(menuText(1), {
         parse_mode: "HTML",
-        reply_markup: food_keyboard,
+        reply_markup: foodKeyboard,
       });
     })
     .chatType("private");
 
   // For Back Button
-
   bot.callbackQuery("Back", async (ctx) => {
     //Update message content with corresponding menu section
     await ctx.editMessageText(
@@ -209,7 +209,7 @@ async function RequestFoodFeedback() {
         ? menuText(1)
         : menuText(2, num_to_item.get(feedbackData["FoodItem"])[0]),
       {
-        reply_markup: menuState === 2 ? food_keyboard : rating_keyboard, // If not 2 then is 3 alr
+        reply_markup: menuState === 2 ? foodKeyboard : ratingKeyboard, // If not 2 then is 3 alr
         parse_mode: "HTML",
       },
     );
@@ -252,7 +252,7 @@ async function RequestFoodFeedback() {
             ctx.callbackQuery.data,
           ),
       {
-        reply_markup: menuState === 1 ? rating_keyboard : yesno_keyboard,
+        reply_markup: menuState === 1 ? ratingKeyboard : yesno_keyboard,
         parse_mode: "HTML",
       },
     );
