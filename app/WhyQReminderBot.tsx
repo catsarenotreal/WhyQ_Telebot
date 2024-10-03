@@ -3,18 +3,8 @@ import express from "express";
 import axios from "axios";
 import cron from "node-cron";
 import mysql from "mysql2";
-
-interface menuType {
-  menu_item: string;
-  restaurant: string;
-}
-
-interface FeedbackData {
-  FoodItem: string;
-  Rating: string;
-  WouldOrderAgain: string;
-}
-
+import { Menu, FeedbackData } from "./types";
+import { TELEGRAM_URL, BOT_TOKEN, CHAT_ID } from "./constants";
 // ===================================
 
 // Global Stuff
@@ -33,8 +23,6 @@ module.exports = connection;
 
 const date_today = new Date().toLocaleDateString("sv-SE"); // sv's format is in yyyy-mm-dd
 
-const token = "7920055205:AAEfvvxkKN9WjLydTOIP9djwLCph-CIE9D8"; // API token (secret)
-
 // const command_start = {
 //   name: "start",
 //   description: "talks shit about justin",
@@ -45,19 +33,14 @@ const token = "7920055205:AAEfvvxkKN9WjLydTOIP9djwLCph-CIE9D8"; // API token (se
 //   }
 // }
 
-const bot = new Bot(token);
-
-const telegram_url = "https://api.telegram.org/bot" + token;
-
-// TODO: obtain chat id of the actual group
-const chat_id = "-1002323410867"; // testing group
+const bot = new Bot(BOT_TOKEN);
 
 // ===================================
 
 // Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
 
 const getPMChatId = () => {
-  var res = axios.get(telegram_url + "/getUpdates").then((result) => {
+  var res = axios.get(TELEGRAM_URL + "/getUpdates").then((result) => {
     // var res = JSON.stringify(result.data.message);
     console.log(result.data);
     // console.log(result.data)
@@ -101,8 +84,8 @@ async function addReview(feedbackData: FeedbackData) {
 // Helper function to post message
 
 const postMessage = (message: string, private_only: boolean = false) => {
-  axios.post(telegram_url + "/sendMessage", {
-    chat_id: chat_id,
+  axios.post(TELEGRAM_URL + "/sendMessage", {
+    chat_id: CHAT_ID,
     text: message,
   });
 };
@@ -203,7 +186,7 @@ async function RequestFoodFeedback() {
 
   // Button (Keyboard) Texts
 
-  var filtered_data = (await retrieveMenuItems()) as menuType[];
+  var filtered_data = (await retrieveMenuItems()) as Menu[];
 
   var num_to_item = new Map(); // local index --> food item name -->
 
@@ -340,9 +323,9 @@ async function RequestFoodFeedback() {
 
 // Enabled Commands
 
-axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
   // This begins the bot. Only posts once.
-  chat_id: chat_id,
+  chat_id: CHAT_ID,
   text: "Bot Begin",
 });
 
