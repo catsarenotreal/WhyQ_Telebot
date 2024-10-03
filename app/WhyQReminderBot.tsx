@@ -1,6 +1,5 @@
 import { Bot, Context, InlineKeyboard, Keyboard } from "grammy";
 import express from "express";
-import axios from "axios";
 import cron from "node-cron";
 import mysql from "mysql2";
 import { Menu, FeedbackData } from "./types";
@@ -48,30 +47,6 @@ bot.on("message", () => {
 });
 
 // ===================================
-
-// MySQL post/get helper functions
-
-async function retrieveMenuItems() {
-  // Get
-  const [rows, fields] = await connection
-    .promise()
-    .query(
-      "select menu_item, restaurant, item_id from menuitems where date = curdate();",
-    );
-  return rows;
-}
-
-async function addReview(feedbackData: FeedbackData) {
-  // Post
-
-  await connection
-    .promise()
-    .query(
-      `insert into reviews (item_id, rating, order_again) values ( ${feedbackData["FoodItem"]}, ${feedbackData["Rating"]}, "${feedbackData["WouldOrderAgain"]}");`,
-    );
-
-  console.log("DONE!!!!!!!");
-}
 
 // Function to remind Justin --> only Mondays, Tuesdays, Wednesdays
 
