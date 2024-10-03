@@ -7,7 +7,7 @@ const SQL_CONNECTION = mysql.createConnection({
   database: "telebot_schema",
 });
 
-async function retrieveMenuItems() {
+export async function retrieveMenuItems() {
   // Get
   const [rows, fields] = await SQL_CONNECTION.promise().query(
     "select menu_item, restaurant, item_id from menuitems where date = curdate();",
@@ -15,7 +15,7 @@ async function retrieveMenuItems() {
   return rows;
 }
 
-async function addReview(feedbackData: FeedbackData) {
+export async function addReview(feedbackData: FeedbackData) {
   // Post
 
   await SQL_CONNECTION.promise().query(

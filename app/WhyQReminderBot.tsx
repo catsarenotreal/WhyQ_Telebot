@@ -5,21 +5,13 @@ import mysql from "mysql2";
 import { Menu, FeedbackData } from "./types";
 import { TELEGRAM_URL, BOT_TOKEN, CHAT_ID } from "./constants";
 import { beginBot, getUpdates, sendMessage } from "./services/axios";
+import { retrieveMenuItems, addReview } from "./services/mysql";
 // ===================================
 
 // Global Stuff
 
 const app = express();
 app.use(express.json());
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "telebot_schema",
-});
-
-module.exports = connection;
 
 const date_today = new Date().toLocaleDateString("sv-SE"); // sv's format is in yyyy-mm-dd
 
