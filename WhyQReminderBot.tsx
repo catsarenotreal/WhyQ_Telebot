@@ -1,61 +1,109 @@
 import { Bot, Context, InlineKeyboard, Keyboard } from "grammy";
 import express from "express";
 import axios from "axios";
-import menu_data from './2024-09-30_menu_data.json';
-
 import cron from 'node-cron';
-
-
-// Cron jobs
-
-const justin_reminder_cron = cron.schedule('30 11 * * 1-3', () => {
-  SubmitWhyQFoodReminder();
-  console.log("Justin reminder Sent!")
-})
-
-const feedback_reminder_cron = cron.schedule('20 13 * * 1-5', () => {
-  SubmitFeedbackReminder();
-  console.log("Feedback reminder Sent!")
-})
+import mysql from 'mysql2';
 
 
 
+
+interface menuType {
+  menu_item : string;
+  restaurant : string;
+}
+
+interface FeedbackData {
+  'FoodItem' : string,
+  'Rating' : string,
+  'WouldOrderAgain' : string
+}
+
+
+// ===================================
 
 // Global Stuff
 
-const app = express();
-const token = "7920055205:AAEfvvxkKN9WjLydTOIP9djwLCph-CIE9D8"
 
-const command_start = {
-  name: "start",
-  description: "talks shit about justin",
-  usage: "/start",
-  example: "/start",
-  handler: async (ctx : Context) => {
-    await ctx.reply("justin is trash")
-  }
-}
+const app = express();
+app.use(express.json())
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'telebot_schema'
+})
+
+module.exports = connection
+
+const date_today = new Date().toLocaleDateString('sv-SE') // sv's format is in yyyy-mm-dd
+
+const token = "7920055205:AAEfvvxkKN9WjLydTOIP9djwLCph-CIE9D8" // API token (secret)
+
+// const command_start = {
+//   name: "start",
+//   description: "talks shit about justin",
+//   usage: "/start",
+//   example: "/start",
+//   handler: async (ctx : Context) => {
+//     await ctx.reply("justin is trash")
+//   }
+// }
 
 const bot = new Bot(token); 
 
-bot.command("remind", () => {
-  axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
-    chat_id: chat_id,
-    text: "hell yeah"
-  });
-})
+
 const telegram_url = "https://api.telegram.org/bot" + token 
 
 
 // TODO: obtain chat id of the actual group
 const chat_id = "-1002323410867" // testing group
 
-const date_today = new Date().toLocaleDateString('sv-SE') // sv's format is in yyyy-mm-dd
 
 
-// Function to post message
+// ===================================
 
-const postMessage = (message : string) => {
+// Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
+
+const getPMChatId = () => {
+  var res = axios.get(telegram_url+"/getUpdates").then((result)=>{
+    // var res = JSON.stringify(result.data.message);
+    console.log(result.data)
+    // console.log(result.data)
+    // console.log(res)
+    // console.log(res.result[0].message.chat.id.toString());
+  })
+}
+
+bot.on('message', ()=>{
+  getPMChatId();
+})
+
+
+// ===================================
+
+// MySQL post/get helper functions
+
+async function retrieveMenuItems() { // Get
+  const [rows, fields] = await connection.promise().query('select menu_item, restaurant, item_id from menuitems where date = curdate();');
+  return rows
+}
+
+
+async function addReview(feedbackData : FeedbackData){ // Post
+  
+  await connection.promise().query(`insert into reviews (item_id, rating, order_again) values ( ${feedbackData['FoodItem']}, ${feedbackData['Rating']}, "${feedbackData['WouldOrderAgain']}");`)
+
+  console.log("DONE!!!!!!!")
+}
+
+
+// ===================================
+
+// Helper function to post message
+
+const postMessage = (message : string, private_only : boolean = false) => {
+
   
   axios.post(telegram_url + "/sendMessage", {
       chat_id: chat_id,
@@ -66,8 +114,9 @@ const postMessage = (message : string) => {
 }
 
 
-// Function to remind Justin --> only Mondays, Tuesdays, Weds
-// if new Date().getDay() < 3 , send this message at 11pm
+// ===================================
+
+// Function to remind Justin --> only Mondays, Tuesdays, Wednesdays
 
 const SubmitWhyQFoodReminder = () => { 
 
@@ -79,7 +128,7 @@ const SubmitWhyQFoodReminder = () => {
     reminder_message = "Justin it's Monday please submit your WhyQ"
   }
   else if (day_today === 2) {
-    reminder_message = "Justin stop trying to test yourself it's Tuesday submit your WhyQ can"
+    reminder_message = "Justin stop trying to edge yourself it's Tuesday submit your WhyQ can"
   }
   else if (day_today === 3) {
     reminder_message = "Justin if you don't submit the WhyQ now it's gonna be joever"
@@ -92,32 +141,34 @@ const SubmitWhyQFoodReminder = () => {
 
 // Function to remind people to do the daily survey --> everyday, send at 1.20pm
 
-const SubmitFeedbackReminder = () => { // maybe also a reminder to kup leftover foods
+const SubmitFeedbackReminder = () => { 
 
   const reminder_message : string = "Hi pretty please please please submit your WhyQ survey for today's (" + date_today + ") food\n"+
-                                    "Also, if you want to get the leftover foods now is probably the time to go for it"
-  // TODO : include a link to the private chat
+                                    "Also, if you want to get the leftover foods now is probably the time to go for it\n" +
+                                    ">>>> And avoid Lihoon <<<<"
 
-  postMessage(reminder_message)
+  postMessage(reminder_message, true)
 
 }
 
 
-// Function to conduct survey --> takes fooditems that is known to have been on the menu on today's date 
-// comes together with the submitfeedbackreminder
+// Function to conduct survey, the actual form--> takes fooditems that is known to have been on the menu on today's date 
 
-const RequestFoodFeedback = () => {
+async function RequestFoodFeedback () {
 
 
   // Payload Template
 
-  var feedbackData = { 
-    'FoodItem': "If you're reading this I fucked up somewhere: FoodItem",
+  var feedbackData : FeedbackData = { 
+    'FoodItem': "If you're reading this I fucked up somewhere: FoodItem", // takes the local index
     'Rating' : "If you're reading this I fucked up somewhere: Rating",
     'WouldOrderAgain' : "If you're reading this I fucked somewhere: WouldOrderAgain"
   }
 
-  var menuState : number = 1; // Which menu interface should be displayed
+
+  // State of the menu interface that should be displayed
+
+  var menuState : number = 1;
 
 
   // Menu Text
@@ -149,25 +200,22 @@ const RequestFoodFeedback = () => {
   
 
 
-  // Button Text and values
-  
-  var filtered_data = menu_data.filter((entry) => entry['date'] == date_today) 
+  // Button (Keyboard) Texts
 
+  var filtered_data = await retrieveMenuItems() as menuType[]
 
-  // Creating the options for the different menu buttons
-
-  var num_to_item = new Map()
+  var num_to_item = new Map() // local index --> food item name --> 
 
   var menu_list_text = "";
   for (let i = 0; i < filtered_data.length; i++){
-    menu_list_text += i + ": " + filtered_data[i]['menu item'].toString() + '\n'
-    num_to_item.set(i.toString(), filtered_data[i]['menu item'].toString())
+    menu_list_text += i + ": " + filtered_data[i]['menu_item'] + '\n'
+    num_to_item.set(i.toString(), [filtered_data[i]['menu_item'], filtered_data[i]['item_id']])
   }
 
   let num = 0;
 
   const food_options = filtered_data.map((entry) => 
-     [(num++).toString(), num.toString()]
+     [(++num).toString(), num.toString()]
   )
   
   const rating_options = [
@@ -183,7 +231,9 @@ const RequestFoodFeedback = () => {
   ]
 
 
-  // Creating the Keyboards 
+
+  // Creating the Keyboards with above texts
+
   const backButton = InlineKeyboard.text("Back", "Back")
 
   const foodButtonRows = food_options.reduce<any>((acc, [txt, data], i) => {
@@ -203,21 +253,21 @@ const RequestFoodFeedback = () => {
 
 
 
-  // To initialise the /menu command
+  // To initialise the /survey command. Creates a new survey and can only be used within a PM (as opposed to group)
 
-  bot.command("menu", async (ctx) => {
+  bot.command("survey", async (ctx) => {
     await ctx.reply(menuText(1), {
       parse_mode: "HTML",
       reply_markup: food_keyboard,
     });
-  });
+  }).chatType('private')
 
 
   // For Back Button
 
   bot.callbackQuery("Back", async (ctx) => {
     //Update message content with corresponding menu section
-    await ctx.editMessageText(menuState === 2 ? menuText(1) : menuText(2, feedbackData['FoodItem']), {
+    await ctx.editMessageText(menuState === 2 ? menuText(1) : menuText(2, num_to_item.get(feedbackData['FoodItem'])[0]), {
       reply_markup: menuState === 2 ? food_keyboard : rating_keyboard, // If not 2 then is 3 alr
       parse_mode: "HTML",
     });
@@ -234,21 +284,23 @@ const RequestFoodFeedback = () => {
       console.log("done");
       feedbackData['WouldOrderAgain'] = ctx.callbackQuery.data
       
-      await ctx.editMessageText(completeSurveyText(feedbackData['FoodItem'], feedbackData['Rating'], feedbackData['WouldOrderAgain']))
+      await ctx.editMessageText(completeSurveyText(num_to_item.get(feedbackData['FoodItem'])[0], feedbackData['Rating'], feedbackData['WouldOrderAgain'])).then(()=>{
+        // console.log(feedbackData)
+        feedbackData['FoodItem'] = num_to_item.get(feedbackData['FoodItem'])[1]
+      })
       menuState = 1;
 
-
-      // await axios.post("", feedbackData) // cannot transfer to cloud service as per rakuten policy lmao
+      addReview(feedbackData)
       return;
     }
 
-    await ctx.editMessageText(menuState === 1 ? menuText(2, num_to_item.get(ctx.callbackQuery.data)) : menuText(3, feedbackData['FoodItem'], ctx.callbackQuery.data), {
+    await ctx.editMessageText(menuState === 1 ? menuText(2, num_to_item.get(ctx.callbackQuery.data)[0]) : menuText(3, num_to_item.get(feedbackData['FoodItem'])[0], ctx.callbackQuery.data), {
       reply_markup: menuState === 1 ? rating_keyboard : yesno_keyboard,
       parse_mode: "HTML",
     });
 
     if (menuState === 1){
-      feedbackData['FoodItem'] = num_to_item.get(ctx.callbackQuery.data)
+      feedbackData['FoodItem'] = ctx.callbackQuery.data
     }
     else if (menuState === 2){
       feedbackData['Rating'] = ctx.callbackQuery.data
@@ -264,12 +316,38 @@ const RequestFoodFeedback = () => {
 
 
 
-axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+// ===================================
+
+// Enabled Commands
+
+
+axios.post(`https://api.telegram.org/bot${token}/sendMessage`, { // This begins the bot. Only posts once.
   chat_id: chat_id,
-  text: "start test"
+  text: "Bot Begin"
 });
 
-RequestFoodFeedback();
 
+RequestFoodFeedback() // The feedback form
+
+
+
+// ===================================
+
+// Cron jobs
+
+const justin_reminder_cron = cron.schedule('30 11 * * 1-3', () => { // Monday to Wednesday, 11.30am -- Sent in group
+  SubmitWhyQFoodReminder();
+  console.log("Justin reminder Sent!")
+})
+
+const feedback_reminder_cron = cron.schedule('20 13 * * 1-5', () => { // Monday to Friday, 1.20pm -- Sent only via PM
+  SubmitFeedbackReminder();
+  console.log("Feedback reminder Sent!")
+})
+
+
+// ===================================
+
+// Start bot
 
 bot.start()
