@@ -29,14 +29,6 @@ const currentDate = new Date().toLocaleDateString("sv-SE"); // sv's format is in
 
 const bot = new Bot(BOT_TOKEN);
 
-// ===================================
-
-// Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
-
-bot.command("start", (ctx) => {
-  addNewUserChatId(ctx.chat.id.toString());
-}); 
-
 
 // ===================================
 
@@ -273,6 +265,16 @@ async function RequestFoodFeedback() {
     menuState++;
   });
 }
+
+// ===================================
+
+// Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
+
+bot.command("start", (ctx) => {
+  if (ctx.chat.type === "private") addNewUserChatId(ctx.chat.id.toString());
+}); 
+
+
 
 // ===================================
 
