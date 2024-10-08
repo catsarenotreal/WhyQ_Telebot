@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "tsx ./WhyQReminderBot.tsx",
+        "start": "tsx app/WhyQReminderBot.tsx",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",

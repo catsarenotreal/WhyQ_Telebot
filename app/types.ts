@@ -8,3 +8,7 @@ export interface FeedbackData {
   Rating: string;
   WouldOrderAgain: string;
 }
+
+export interface PrivateChatId {
+  chat_id: string;
+}

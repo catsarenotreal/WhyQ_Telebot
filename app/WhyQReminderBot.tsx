@@ -1,7 +1,7 @@
 import { Bot, Context, InlineKeyboard, Keyboard } from "grammy";
 import express from "express";
 import cron from "node-cron";
-import { Menu, FeedbackData } from "./types";
+import { Menu, FeedbackData, PrivateChatId } from "./types";
 import {
   TELEGRAM_URL,
   BOT_TOKEN,
@@ -10,9 +10,12 @@ import {
   TUESDAY,
   WEDNESDAY,
 } from "./constants";
-import { beginBot, getUpdates, sendMessage } from "./services/axios";
-import { retrieveMenuItems, addReview } from "./services/mysql";
+import { beginBot, getUpdates, sendMessage, sendPrivateChatMessage } from "./services/axios";
+import { retrieveMenuItems, retrieveMenuItemsTestFunction, addReview, addNewUserChatId, retrieveAllPrivateUsers} from "./services/mysql";
 // ===================================
+
+
+
 
 // Global Stuff
 
@@ -20,29 +23,20 @@ const app = express();
 app.use(express.json());
 
 const currentDate = new Date().toLocaleDateString("sv-SE"); // sv's format is in yyyy-mm-dd
+// ok so this needs to be re-called everyday because else it oesn't work
+// TODO : figure out how this may need to work
 
-// const command_start = {
-//   name: "start",
-//   description: "talks shit about justin",
-//   usage: "/start",
-//   example: "/start",
-//   handler: async (ctx : Context) => {
-//     await ctx.reply("justin is trash")
-//   }
-// }
 
 const bot = new Bot(BOT_TOKEN);
 
 // ===================================
 
 // Get ChatIds for private messages and put into a database because there is no API for this (also only one group so manual)
-const getPMChatId = () => {
-  getUpdates();
-};
 
-bot.on("message", () => {
-  getPMChatId();
-});
+bot.command("start", (ctx) => {
+  addNewUserChatId(ctx.chat.id.toString());
+}); 
+
 
 // ===================================
 
@@ -63,17 +57,25 @@ const SubmitWhyQFoodReminder = () => {
 
 // Function to remind people to do the daily survey --> everyday, send at 1.20pm
 
+async function broadcastPrivateChatMessage(message : string) {
+  var all_private_chats = (await retrieveAllPrivateUsers()) as PrivateChatId[];
+
+  all_private_chats.map((chat) => sendPrivateChatMessage(chat['chat_id'], message))
+}
+
 const SubmitFeedbackReminder = () => {
   const reminder_message: string =
     "Hi pretty please please please submit your WhyQ survey for today's (" +
     currentDate +
-    ") food\n" +
+    ") food via /survey \n" +
     "Also, if you want to get the leftover foods now is probably the time to go for it\n" +
     ">>>> And avoid Lihoon <<<<";
 
-  sendMessage(reminder_message, true);
+  // sendMessage(reminder_message, true);
+  broadcastPrivateChatMessage(reminder_message)
 };
 
+SubmitFeedbackReminder()
 // Function to conduct survey, the actual form--> takes fooditems that is known to have been on the menu on today's date
 
 async function RequestFoodFeedback() {
@@ -131,11 +133,15 @@ async function RequestFoodFeedback() {
     "Would Order Again: " +
     wouldOrderInput;
   "==============================\n" +
-    "Reminder: Go get the leftovers if you haven't already";
+    "Reminder: Go get the leftovers if you haven't already" +
+    "\n" +
+    "Also please don't submit multiple surveys a day - it seemed like a rabbit hole into other functions like edit so I didn't implement a check for this so please spare me the pain" +
+    "\n" +
+    "And doing so means database schema has to be changed and I can't store reviews anonymously so ^_^";
 
   // Button (Keyboard) Texts
 
-  var filtered_data = (await retrieveMenuItems()) as Menu[];
+  var filtered_data = (await retrieveMenuItemsTestFunction()) as Menu[]; // TODO : change to retrieveMenuItems() when not in testing
 
   var num_to_item = new Map(); // local index --> food item name -->
 
@@ -151,8 +157,8 @@ async function RequestFoodFeedback() {
   let num = 0;
 
   const foodOptions = filtered_data.map((entry) => [
-    (++num).toString(),
     num.toString(),
+    (num++).toString(),
   ]);
 
   const ratingOptions = [
@@ -191,6 +197,7 @@ async function RequestFoodFeedback() {
   const yesno_keyboard = InlineKeyboard.from(yesNoButtonRows);
 
   // To initialise the /survey command. Creates a new survey and can only be used within a PM (as opposed to group)
+  // Only allows once a day. MAYBE TODO : implement a check for once a day per user
 
   bot
     .command("survey", async (ctx) => {
@@ -198,8 +205,8 @@ async function RequestFoodFeedback() {
         parse_mode: "HTML",
         reply_markup: foodKeyboard,
       });
-    })
-    .chatType("private");
+    }) 
+  
 
   // For Back Button
   bot.callbackQuery("Back", async (ctx) => {
@@ -271,7 +278,7 @@ async function RequestFoodFeedback() {
 
 // Enabled Commands
 
-beginBot();
+beginBot(); // runs whenever the code executes, diff from bot.start() - should probably remove
 RequestFoodFeedback(); // The feedback form
 
 // ===================================
