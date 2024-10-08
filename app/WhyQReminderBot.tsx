@@ -15,8 +15,6 @@ import { retrieveMenuItems, retrieveMenuItemsTestFunction, addReview, addNewUser
 // ===================================
 
 
-
-
 // Global Stuff
 
 const app = express();
@@ -26,8 +24,8 @@ const currentDate = new Date().toLocaleDateString("sv-SE"); // sv's format is in
 // ok so this needs to be re-called everyday because else it oesn't work
 // TODO : figure out how this may need to work
 
-
 const bot = new Bot(BOT_TOKEN);
+
 
 
 // ===================================
@@ -35,7 +33,7 @@ const bot = new Bot(BOT_TOKEN);
 // Function to remind Justin --> only Mondays, Tuesdays, Wednesdays
 
 const SubmitWhyQFoodReminder = () => {
-  const currentDay = new Date().getDay();
+  const currentDay = new Date().getDay(); // TODO : settle this also
 
   const reminderMessage =
     currentDay === MONDAY
@@ -63,11 +61,9 @@ const SubmitFeedbackReminder = () => {
     "Also, if you want to get the leftover foods now is probably the time to go for it\n" +
     ">>>> And avoid Lihoon <<<<";
 
-  // sendMessage(reminder_message, true);
   broadcastPrivateChatMessage(reminder_message)
 };
 
-SubmitFeedbackReminder()
 // Function to conduct survey, the actual form--> takes fooditems that is known to have been on the menu on today's date
 
 async function RequestFoodFeedback() {
@@ -273,7 +269,6 @@ async function RequestFoodFeedback() {
 bot.command("start", (ctx) => {
   if (ctx.chat.type === "private") addNewUserChatId(ctx.chat.id.toString());
 }); 
-
 
 
 // ===================================
